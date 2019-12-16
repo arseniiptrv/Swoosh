@@ -2,36 +2,34 @@ package com.arseniiptrv.swoosh.Controller
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.arseniiptrv.swoosh.Model.Player
 import com.arseniiptrv.swoosh.R
-import com.arseniiptrv.swoosh.Utilities.EXTRA_LEAGUE
-import com.arseniiptrv.swoosh.Utilities.EXTRA_SKILL
+import com.arseniiptrv.swoosh.Utilities.EXTRA_PLAYER
 import kotlinx.android.synthetic.main.activity_skill.*
 
 class SkillActivity : AppCompatActivity() {
 
-    var selectedLeague : String = ""
-    var selectedSkill = ""
+    lateinit var player: Player
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_skill)
 
-        val stringExtra = intent.getStringExtra(EXTRA_LEAGUE) ?: "value hasn't been assigned"
-        selectedLeague = stringExtra
-//      println(league)
-        Log.e("ddd", selectedLeague)
-        Log.i("league", selectedLeague)
+        //player = intent.getParcelableExtra(EXTRA_PLAYER) ?: "value hasn't been assigned"
+        player = intent.getParcelableExtra(EXTRA_PLAYER)
+
+        //selectedLeague = stringExtra
+        //Log.e("ddd", selectedLeague)
+        //Log.i("league", selectedLeague)
     }
 
     fun onSkillFinishClicked(view: View) {
-        if (selectedSkill != "") {
+        if (player.skill != "") {
             val finishActivityInt = Intent(this, FinishActivity::class.java)
-            finishActivityInt.putExtra(EXTRA_LEAGUE, selectedLeague)
-            finishActivityInt.putExtra(EXTRA_SKILL, selectedSkill)
+            finishActivityInt.putExtra(EXTRA_PLAYER, player)
             startActivity(finishActivityInt)
         }
         else {
@@ -41,11 +39,11 @@ class SkillActivity : AppCompatActivity() {
 
     fun onBeginnerClick(view: View) {
         ballerSkillBtn.isChecked = false
-        selectedSkill = "BEGINNER"
+        player.skill = "BEGINNER".toLowerCase()
     }
 
     fun onBallerClick(view: View) {
         beginnerSkillBtn.isChecked = false
-        selectedSkill = "BALLER"
+        player.skill = "BALLER".toLowerCase()
     }
 }

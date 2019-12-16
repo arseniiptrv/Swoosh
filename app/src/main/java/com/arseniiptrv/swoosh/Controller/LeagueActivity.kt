@@ -5,20 +5,23 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.arseniiptrv.swoosh.Model.Player
 import com.arseniiptrv.swoosh.R
-import com.arseniiptrv.swoosh.Utilities.EXTRA_LEAGUE
+import com.arseniiptrv.swoosh.Utilities.EXTRA_PLAYER
 import kotlinx.android.synthetic.main.activity_league.*
 
 class LeagueActivity : AppCompatActivity() {
+
+    var player = Player("", "")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_league)
 
         leagueNextBtn.setOnClickListener {
-            val skillIntent = Intent(this, SkillActivity::class.java)
-            skillIntent.putExtra(EXTRA_LEAGUE, selectedLeague)
-            if (selectedLeague != "") {
+            if (player.league != "") {
+                val skillIntent = Intent(this, SkillActivity::class.java)
+                skillIntent.putExtra(EXTRA_PLAYER, player)
                 startActivity(skillIntent)
             }
             else {
@@ -27,33 +30,24 @@ class LeagueActivity : AppCompatActivity() {
         }
     }
 
-    var selectedLeague = ""
-
     fun onMensClicked(view: View) {
         womensLeagueBtn.isChecked = false
         coedLeagueBtn.isChecked = false
 
-        selectedLeague = "Mens"
+        player.league = "Mens"
     }
 
     fun onWomensClicked(view: View) {
         mensLeagueBtn.isChecked = false
         coedLeagueBtn.isChecked = false
 
-        selectedLeague = "Womens"
+        player.league = "Womens"
     }
 
     fun onCoedClicked(view: View) {
         mensLeagueBtn.isChecked = false
         womensLeagueBtn.isChecked = false
 
-        selectedLeague = "Co-Ed"
+        player.league = "Co-Ed"
     }
-
-    /*fun skillBtnClicked (view: View) {
-        val skillActivity = Intent(this, SkillActivity::class.java)
-        startActivity(skillActivity)
-    }*/
-
-    
 }
