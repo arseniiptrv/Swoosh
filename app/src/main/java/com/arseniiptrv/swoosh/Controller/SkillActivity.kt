@@ -58,4 +58,7 @@ class SkillActivity : AppCompatActivity() {
         beginnerSkillBtn.isChecked = false
         player.skill = "BALLER".toLowerCase()
     }
+
+    /*val finishBitmap = BitmapFactory.decodeResource(resources, R.layout.activity_skill.)*/
+
 }
